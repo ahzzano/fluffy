@@ -1,9 +1,12 @@
+use sdl2::ttf;
+
 mod display;
 
 fn main() {
     println!("Hello, world!");
     let sdl = sdl2::init().unwrap();
     let mut _display = display::Display::init(&sdl);
+    let ttf = ttf::init().unwrap();
 
     let mut event_pump = sdl.event_pump().unwrap();
     let mut i = 0;
@@ -19,6 +22,7 @@ fn main() {
                 _ => {}
             }
         }
-        _display.render();
+        _display.render(&|disp| {
+        });
     }
 }

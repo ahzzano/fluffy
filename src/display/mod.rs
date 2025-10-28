@@ -38,16 +38,17 @@ impl Display {
         }
     }
 
-    pub fn set_background_color(&mut self) {
+    fn set_background_color(&mut self) {
         unsafe {
             self.gl.clear_color(0.5, 1.0, 1.0, 1.0);
         }
     }
 
-    pub fn render(&mut self) {
+    pub fn render(&mut self, step: &dyn Fn(&mut Self)) {
         self.set_background_color();
         unsafe{ 
             self.gl.clear(COLOR_BUFFER_BIT);
+            step(self);
             self.window.gl_swap_window();
         }
     }
