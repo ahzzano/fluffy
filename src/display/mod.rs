@@ -1,12 +1,13 @@
 use std::rc::Rc;
 
-use glow::Context;
-use sdl2::{Sdl, VideoSubsystem, video::Window};
+use glow::{Context, HasContext, COLOR_BUFFER_BIT};
+use sdl2::{video::{GLContext, Window}, Sdl, VideoSubsystem};
 
 pub struct Display {
     video: VideoSubsystem,
     window: Window,
     gl: Context,
+    glContext: GLContext
 }
 
 impl Display {
@@ -33,7 +34,21 @@ impl Display {
             video: video_subsystem,
             window,
             gl,
+            glContext: context
+        }
+    }
+
+    pub fn set_background_color(&mut self) {
+        unsafe {
+            self.gl.clear_color(0.5, 1.0, 1.0, 1.0);
+        }
+    }
+
+    pub fn render(&mut self) {
+        self.set_background_color();
+        unsafe{ 
+            self.gl.clear(COLOR_BUFFER_BIT);
+            self.window.gl_swap_window();
         }
     }
 }
-

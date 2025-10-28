@@ -1,7 +1,3 @@
-use std::rc::Rc;
-
-use sdl2::pixels::Color;
-
 mod display;
 
 fn main() {
@@ -11,6 +7,7 @@ fn main() {
 
     let mut event_pump = sdl.event_pump().unwrap();
     let mut i = 0;
+
 
     'main_loop: loop {
         i = (i + 1) % 255;
@@ -22,5 +19,6 @@ fn main() {
                 _ => {}
             }
         }
+        _display.render();
     }
 }
